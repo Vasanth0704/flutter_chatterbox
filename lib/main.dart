@@ -1,6 +1,21 @@
-import 'package:flutter/material.dart';
+import 'dart:ffi';
 
-void main() {
+import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+
+void main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await dotenv.load(fileName:".env");
+
+  await Supabase.initialize(
+      url: dotenv.env['SU_URL'] ?? "",
+      anonKey: dotenv.env['SU_ANON'] ?? "",
+  );
+
   runApp(const MyApp());
 }
 
